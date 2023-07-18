@@ -13,4 +13,9 @@ router.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'Develop/public', 'index.html'));
   });
 
+// catchs all other routes and redirects to root
+  router.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'Develop/public', 'index.html'))
+  });
+
 module.exports = router;
