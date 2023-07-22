@@ -33,13 +33,40 @@ app.post('/api/notes', (req, res) => {
               if (err) {
                   console.error(err);
               } else {
-                  console.info("Notes have been updated!")
+                  console.info("Hooray! Its Working!")
                   res.json(note)
               };
 
           });
       }
   })
+});
+
+
+app.delete('/api/notes/:id', (req, res) => {
+  let erasenote = req.params.id;
+
+  fs.readFile(__dirname + '/db/db.json', 'utf8', (error, input) => {
+      if (error) {
+          console.log(error);
+      } else {
+          let notelist = JSON.parse(input);
+
+          for (let i = 0; i < notelist.length; i++) {
+              if (notelist[i].id === erasenote) {
+                  notelist.splice(i, 1);
+              }
+          }
+
+          fs.writeFile(__dirname + '/db/db.json', JSON.stringify(notelist), (error) => {
+              if (error) {
+                  return error;
+              }
+              console.log(notelist);
+              res.json(notelist);
+          });
+      }
+  });
 });
 
 
