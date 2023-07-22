@@ -1,16 +1,1 @@
-[
- {
-  "title": "Test Title",
-  "text": "Test text"
- },
- {
-  "title": "Here We go",
-  "text": "Starting\n",
-  "id": "fe777d81-9117-465c-b407-78f133275681"
- },
- {
-  "title": "Lets go",
-  "text": "Its working\n",
-  "id": "3620a39d-dac2-473a-88b8-b16a88c85ebd"
- }
-]
+[{"title":"Here We go","text":"Starting\n","id":"fe777d81-9117-465c-b407-78f133275681"},{"title":"Lets go","text":"Its working\n","id":"3620a39d-dac2-473a-88b8-b16a88c85ebd"}]
