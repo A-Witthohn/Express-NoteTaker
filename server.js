@@ -15,28 +15,31 @@ app.use(express.static(path.join(__dirname, '/public')));
 app.use(routes);
 
 app.post('/api/notes', (req, res) => {
-  const { title, text } = req.body;
-  const note = { title, text, id: uuidv4() };
+  const { title, text } = req.body
+  const note = {
+      title,
+      text,
+      id: uuidv4(),
+  };
+  fs.readFile('./db/db.json', 'utf8', (error, input) => {
+      if (error) {
+          console.log(error);
+      } else {
+          const parseNote = JSON.parse(input);
 
-  fs.readFile('./db/db.json', 'utf8', (error, data) => {
-    if (error) {
-      console.error(error);
-      return res.status(500).json({ error: 'Error reading the database file.' });
-    }
+          parseNote.push(note);
 
-    const notes = JSON.parse(data);
-    notes.push(note);
+          fs.writeFile('./db/db.json', JSON.stringify(parseNote, null, 1), (err) => {
+              if (err) {
+                  console.error(err);
+              } else {
+                  console.info("Notes have been updated!")
+                  res.json(note)
+              };
 
-    fs.writeFile('./db/db.json', JSON.stringify(notes, null, 2), (err) => {
-      if (err) {
-        console.error(err);
-        return res.status(500).json({ error: 'Error writing to the database file.' });
+          });
       }
-
-      console.info('Congrats! Your Post worked.');
-      res.json(note);
-    });
-  });
+  })
 });
 
 
